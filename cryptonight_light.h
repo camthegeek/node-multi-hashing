@@ -1,5 +1,5 @@
-#ifndef CRYPTONIGHT_H
-#define CRYPTONIGHT_H
+#ifndef CRYPTONIGHT_LIGHT_H
+#define CRYPTONIGHT_LIGHT_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -7,8 +7,8 @@ extern "C" {
 
 #include <stdint.h>
 
-void cryptonight_hash(const char* input, char* output, uint32_t len, int variant);
-void cryptonight_fast_hash(const char* input, char* output, uint32_t len);
+void cryptonight_light_hash(const char* input, char* output, uint32_t len, int variant);
+void cryptonight_light_fast_hash(const char* input, char* output, uint32_t len);
 
 #ifdef __cplusplus
 }

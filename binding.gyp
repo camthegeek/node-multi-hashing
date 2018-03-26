@@ -18,6 +18,7 @@
                 "hefty1.c",
                 "shavite3.c",
                 "cryptonight.c",
+                "cryptonight_light.c",
                 "x13.c",
                 "boolberry.cc",
                 "nist5.c",
@@ -55,7 +56,7 @@
                 "crypto",
             ],
             "cflags_cc": [
-                "-std=c++0x"
+                "-std=c++11"
             ],
         }
     ]
