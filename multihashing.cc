@@ -19,6 +19,7 @@ extern "C" {
     #include "shavite3.h"
     #include "cryptonight.h"
     #include "cryptonight_light.h"
+    #include "k12.h"
     #include "x13.h"
     #include "nist5.h"
     #include "sha1.h"
@@ -475,6 +476,27 @@ Handle<Value> cryptonight_light(const Arguments& args) {
     return scope.Close(buff->handle_);
 }
 
+Handle<Value> k12(const Arguments& args) {
+    HandleScope scope;
+
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+    
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        return except("Argument should be a buffer object.");
+
+    char * input = Buffer::Data(target);
+    char output[32];
+    
+    uint32_t input_len = Buffer::Length(target);
+
+    k12(input, output, input_len);
+    Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
+}
+
 Handle<Value> x13(const Arguments& args) {
     HandleScope scope;
 
@@ -638,6 +660,7 @@ void init(Handle<Object> exports) {
     exports->Set(String::NewSymbol("shavite3"), FunctionTemplate::New(shavite3)->GetFunction());
     exports->Set(String::NewSymbol("cryptonight"), FunctionTemplate::New(cryptonight)->GetFunction());
     exports->Set(String::NewSymbol("cryptonight_light"), FunctionTemplate::New(cryptonight_light)->GetFunction());
+    exports->Set(String::NewSymbol("k12"), FunctionTemplate::New(k12)->GetFunction());
     exports->Set(String::NewSymbol("x13"), FunctionTemplate::New(x13)->GetFunction());
     exports->Set(String::NewSymbol("boolberry"), FunctionTemplate::New(boolberry)->GetFunction());
     exports->Set(String::NewSymbol("nist5"), FunctionTemplate::New(nist5)->GetFunction());
